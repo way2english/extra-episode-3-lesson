@@ -241,9 +241,28 @@
     .ww-carousel .car-btn:hover:not(:disabled) { background: #f0f4ff; }
     .ww-carousel .car-btn:disabled { opacity: .4; cursor: not-allowed; }
     .ww-carousel .car-counter { font-weight: 600; color: #64748b; font-size: 14px; }
-    .ww-carousel .ww-slide { display: none; }
-    .ww-carousel .ww-slide.active { display: block; }
-    .ww-carousel .ww-slide iframe { width: 100%; border: 0; border-radius: 12px; }
+    .ww-slide { display: none; }
+    .ww-slide.active { display: block; }
+    .ww-slide iframe { width: 100%; border: 0; border-radius: 12px; max-width: 100%; height: 380px; }
+
+    .next-exercise-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin-top: 16px;
+      background: #667eea;
+      color: #fff;
+      border: none;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .2s;
+      text-align: center;
+    }
+    .next-exercise-btn:hover { background: #5a6fd6; }
+    .next-exercise-btn:disabled { opacity: .4; cursor: not-allowed; background: #94a3b8; }
 
     .reading-conv { font-size: 15px; line-height: 2; }
     .reading-speaker { font-weight: 800; color: #667eea; }
@@ -426,12 +445,13 @@
     .copy-btn { background: #667eea; color: #fff; }
 
     .quizlet-wrap { margin-bottom: 16px; }
-    .quizlet-wrap iframe { border-radius: 12px; }
+    .quizlet-wrap iframe { border-radius: 12px; width: 100%; height: 500px; border: 0; }
 
     @media (max-width: 600px) {
       .hero h1 { font-size: 20px; }
       .tab-btn { font-size: 10px; padding: 6px 8px; flex: 1 1 auto; }
       .flash-grid { grid-template-columns: 1fr 1fr; }
+      .ww-slide iframe { height: 300px; }
     }
   </style>
 </head>
@@ -461,13 +481,12 @@
         <iframe src="https://quizlet.com/929750098/flashcards/embed?i=37cc42&x=1jj1" height="500" width="100%" style="border:0;border-radius:12px;"></iframe>
       </div>
     </div>
-
     <div class="part-card">
       <h2>🎯 Вправи на закріплення</h2>
       <div class="ww-carousel" id="vocabCarousel">
-        <div class="ww-slide active" id="vslide-0"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/d6de393ee81140218aca767ccfcc6643?themeId=44&templateId=3&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
-        <div class="ww-slide" id="vslide-1"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/b07792b265a240b4b9d45f0ea3a02857?themeId=26&templateId=82&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
-        <div class="ww-slide" id="vslide-2"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/4790efd40aef4a3c8b027745154d2807?themeId=56&templateId=38&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide active" id="vslide-0"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/d6de393ee81140218aca767ccfcc6643?themeId=44&templateId=3&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="vslide-1"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/b07792b265a240b4b9d45f0ea3a02857?themeId=26&templateId=82&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="vslide-2"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/4790efd40aef4a3c8b027745154d2807?themeId=56&templateId=38&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
         <div class="car-controls">
           <button class="car-btn" id="vprev" disabled onclick="wwCarousel('v',-1)">← Назад</button>
           <span class="car-counter" id="vcounter">1 / 3</span>
@@ -502,15 +521,17 @@
     <div class="part-card">
       <h2>🎯 Вправи</h2>
       <div class="ww-carousel" id="part1Carousel">
-        <div class="ww-slide active" id="p1slide-0"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/64df7135275e4869a7b7bb29fa6ffc40?themeId=1&templateId=46&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
-        <div class="ww-slide" id="p1slide-1"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/31eb66264b5244c78150fc1e37e97e21?themeId=69&templateId=38&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
-        <div class="ww-slide" id="p1slide-2"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/48e4fe2fbf7d4262b898a7e7231c8cb9?themeId=43&templateId=76&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide active" id="p1slide-0"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/64df7135275e4869a7b7bb29fa6ffc40?themeId=1&templateId=46&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p1slide-1"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/31eb66264b5244c78150fc1e37e97e21?themeId=69&templateId=38&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p1slide-2"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/48e4fe2fbf7d4262b898a7e7231c8cb9?themeId=43&templateId=76&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
         <div class="car-controls">
           <button class="car-btn" id="p1prev" disabled onclick="wwCarousel('p1',-1)">← Назад</button>
           <span class="car-counter" id="p1counter">1 / 3</span>
           <button class="car-btn" id="p1next" onclick="wwCarousel('p1',1)">Далі →</button>
         </div>
       </div>
+      <!-- Кнопка "Наступна вправа" внизу -->
+      <button class="next-exercise-btn" id="p1NextBtn" onclick="wwCarousel('p1',1)">Наступна вправа →</button>
     </div>
 
     <div class="part-card">
@@ -540,16 +561,17 @@
     <div class="part-card">
       <h2>🎯 Вправи</h2>
       <div class="ww-carousel" id="part2Carousel">
-        <div class="ww-slide active" id="p2slide-0"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/89e74afd8d5447dd96670fb343544179?themeId=52&templateId=3&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
-        <div class="ww-slide" id="p2slide-1"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/d9ff08112ce54e25b5533168b5596331?themeId=52&templateId=5&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
-        <div class="ww-slide" id="p2slide-2"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/4406d4c0cae94954b15cd25dec4b0625?themeId=1&templateId=35&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
-        <div class="ww-slide" id="p2slide-3"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/f62610d36e464557920a2851de8dea72?themeId=52&templateId=72&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide active" id="p2slide-0"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/89e74afd8d5447dd96670fb343544179?themeId=52&templateId=3&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p2slide-1"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/d9ff08112ce54e25b5533168b5596331?themeId=52&templateId=5&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p2slide-2"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/4406d4c0cae94954b15cd25dec4b0625?themeId=1&templateId=35&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p2slide-3"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/f62610d36e464557920a2851de8dea72?themeId=52&templateId=72&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
         <div class="car-controls">
           <button class="car-btn" id="p2prev" disabled onclick="wwCarousel('p2',-1)">← Назад</button>
           <span class="car-counter" id="p2counter">1 / 4</span>
           <button class="car-btn" id="p2next" onclick="wwCarousel('p2',1)">Далі →</button>
         </div>
       </div>
+      <button class="next-exercise-btn" id="p2NextBtn" onclick="wwCarousel('p2',1)">Наступна вправа →</button>
     </div>
 
     <div class="part-card">
@@ -579,16 +601,17 @@
     <div class="part-card">
       <h2>🎯 Вправи</h2>
       <div class="ww-carousel" id="part3Carousel">
-        <div class="ww-slide active" id="p3slide-0"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/d3e27b71c61d4031a5cc82d56f63cb23?themeId=1&templateId=46&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
-        <div class="ww-slide" id="p3slide-1"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/bd51acf85c9d4354bd8bd46aeb846274?themeId=44&templateId=73&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
-        <div class="ww-slide" id="p3slide-2"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/71f5cb68da8c4092a4f746efe0effc65?themeId=51&templateId=5&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
-        <div class="ww-slide" id="p3slide-3"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/4d997dae67fa478ca5af4267e1a55834?themeId=68&templateId=36&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide active" id="p3slide-0"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/d3e27b71c61d4031a5cc82d56f63cb23?themeId=1&templateId=46&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p3slide-1"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/bd51acf85c9d4354bd8bd46aeb846274?themeId=44&templateId=73&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p3slide-2"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/71f5cb68da8c4092a4f746efe0effc65?themeId=51&templateId=5&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p3slide-3"><iframe style="max-width:100%;width:100%;height:380px;" data-src="https://wordwall.net/uk/embed/4d997dae67fa478ca5af4267e1a55834?themeId=68&templateId=36&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
         <div class="car-controls">
           <button class="car-btn" id="p3prev" disabled onclick="wwCarousel('p3',-1)">← Назад</button>
           <span class="car-counter" id="p3counter">1 / 4</span>
           <button class="car-btn" id="p3next" onclick="wwCarousel('p3',1)">Далі →</button>
         </div>
       </div>
+      <button class="next-exercise-btn" id="p3NextBtn" onclick="wwCarousel('p3',1)">Наступна вправа →</button>
     </div>
 
     <div class="part-card">
@@ -866,36 +889,77 @@ function makeSel(word, pi, bank) {
   return '<select class="pzl-sel" data-ans="' + word + '" data-pi="' + pi + '">' + o + '</select>';
 }
 
-// Tabs
-document.querySelectorAll('.tab-btn').forEach(btn => {
+// ---- Tabs ----
+const tabHeaders = document.querySelectorAll('.tab-btn');
+tabHeaders.forEach(btn => {
   btn.addEventListener('click', function() {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    tabHeaders.forEach(b => b.classList.remove('active'));
     this.classList.add('active');
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('panel-' + this.dataset.tab).classList.add('active');
+    const panels = document.querySelectorAll('.tab-panel');
+    panels.forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('panel-' + this.dataset.tab);
+    target.classList.add('active');
+
+    // Завантажуємо iframe для активної вкладки
+    setTimeout(() => {
+      loadCarouselForPanel(target);
+    }, 300);
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 });
 
-// Wordwall Carousel
+function loadCarouselForPanel(panel) {
+  const carousels = panel.querySelectorAll('.ww-carousel');
+  carousels.forEach(carousel => {
+    const activeSlide = carousel.querySelector('.ww-slide.active');
+    if (activeSlide) {
+      loadIframesInSlide(activeSlide);
+    }
+  });
+}
+
+// ---- Wordwall Carousel ----
+function loadIframesInSlide(slideEl) {
+  if (!slideEl) return;
+  const iframes = slideEl.querySelectorAll('iframe[data-src]');
+  iframes.forEach(iframe => {
+    if (!iframe.src || iframe.src === '' || iframe.src.indexOf('about:blank') !== -1) {
+      iframe.src = iframe.dataset.src;
+      iframe.removeAttribute('data-src');
+    }
+  });
+}
+
 function wwCarousel(id, dir) {
   const max = wwMax[id] || 0;
-  wwState[id] = Math.max(0, Math.min(max, wwState[id] + dir));
-  const idx = wwState[id];
+  const newIdx = Math.max(0, Math.min(max, wwState[id] + dir));
+  wwState[id] = newIdx;
+  const idx = newIdx;
   const prefix = id === 'v' ? 'vslide' : id === 'p1' ? 'p1slide' : id === 'p2' ? 'p2slide' : 'p3slide';
+
   for (let i = 0; i <= max; i++) {
     const el = document.getElementById(prefix + '-' + i);
-    if (el) el.classList.toggle('active', i === idx);
+    if (el) {
+      el.classList.toggle('active', i === idx);
+      if (i === idx) {
+        loadIframesInSlide(el);
+      }
+    }
   }
+
   const prevBtn = document.getElementById(id + 'prev');
   const nextBtn = document.getElementById(id + 'next');
+  const nextBigBtn = document.getElementById(id + 'NextBtn');
   const counter = document.getElementById(id + 'counter');
+
   if (prevBtn) prevBtn.disabled = (idx === 0);
   if (nextBtn) nextBtn.disabled = (idx === max);
+  if (nextBigBtn) nextBigBtn.disabled = (idx === max);
   if (counter) counter.textContent = (idx + 1) + ' / ' + (max + 1);
 }
 
-// Render quizzes
+// ---- Render Quizzes ----
 function renderQuiz(partKey, containerId, resultId, partIndex) {
   const questions = CONFIG.quizzes[partKey] || [];
   const container = document.getElementById(containerId);
@@ -943,7 +1007,7 @@ function answerQuiz(qKey, qi, oi, ans, convIdx, btn) {
   }
 }
 
-// Render puzzles
+// ---- Render Puzzles ----
 function renderPuzzle(partKey, containerId, partIndex) {
   const data = CONFIG.puzzles[partKey];
   if (!data) return;
@@ -986,7 +1050,7 @@ function markPartDone(partIndex) {
   }
 }
 
-// Reading
+// ---- Reading ----
 function renderReading() {
   const scripts = CONFIG.readingScripts;
   let html = '';
@@ -999,7 +1063,7 @@ function renderReading() {
 }
 renderReading();
 
-// Speaking
+// ---- Speaking ----
 function renderSpeaking() {
   const container = document.getElementById('speakingSlides');
   if (!container) return;
@@ -1025,7 +1089,7 @@ function renderSpeaking() {
 }
 renderSpeaking();
 
-// Carousel navigation (reading & speaking)
+// ---- Carousel navigation (reading & speaking) ----
 function carNav(id, dir) {
   const max = id === 'r' ? 2 : 3;
   carState[id] = Math.max(0, Math.min(max, carState[id] + dir));
@@ -1042,7 +1106,7 @@ function carNav(id, dir) {
 carNav('r', 0);
 carNav('sp', 0);
 
-// Flashcards
+// ---- Flashcards ----
 function renderFlashcards() {
   const grid = document.getElementById('flashGrid');
   if (!grid) return;
@@ -1064,7 +1128,7 @@ function flipAll() {
   document.querySelectorAll('.flash-card').forEach(c => c.classList.toggle('flipped', allFlipped));
 }
 
-// FAB
+// ---- FAB & Results ----
 function updateFab() {
   let g = 0, t = 0;
   Object.values(quizScores).forEach(s => { if (s) { g += s.got; t += s.total; } });
@@ -1104,11 +1168,17 @@ function copyResults() {
   navigator.clipboard.writeText(ta.value).catch(() => {});
 }
 
-// Initialize Wordwall carousels
+// ---- Initialize ----
 wwCarousel('v', 0);
 wwCarousel('p1', 0);
 wwCarousel('p2', 0);
 wwCarousel('p3', 0);
+
+// Додаткове завантаження для активної вкладки (vocab)
+setTimeout(() => {
+  const activePanel = document.querySelector('.tab-panel.active');
+  if (activePanel) loadCarouselForPanel(activePanel);
+}, 500);
 
 updateFab();
 </script>
