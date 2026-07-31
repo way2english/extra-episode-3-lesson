@@ -37,7 +37,7 @@
     .tabs {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
       margin: 20px 16px 24px;
       background: #fff;
       padding: 8px;
@@ -47,20 +47,21 @@
     }
     .tab-btn {
       flex: 1 0 auto;
-      padding: 10px 14px;
+      padding: 8px 12px;
       border: none;
       border-radius: 14px;
       background: #f1f4fa;
       color: #64748b;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
       transition: .2s;
       font-family: inherit;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       justify-content: center;
+      min-width: 50px;
     }
     .tab-btn:hover { background: #e2e8f0; color: #1e293b; }
     .tab-btn.active {
@@ -211,6 +212,39 @@
 
     .car-slide { display: none; animation: fadeUp .3s ease; }
     .car-slide.active { display: block; }
+
+    .ww-carousel {
+      background: #f8faff;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid #e9edf4;
+      margin-top: 12px;
+    }
+    .ww-carousel .car-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .ww-carousel .car-btn {
+      padding: 8px 20px;
+      border: 1px solid #e9edf4;
+      border-radius: 40px;
+      background: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .2s;
+    }
+    .ww-carousel .car-btn:hover:not(:disabled) { background: #f0f4ff; }
+    .ww-carousel .car-btn:disabled { opacity: .4; cursor: not-allowed; }
+    .ww-carousel .car-counter { font-weight: 600; color: #64748b; font-size: 14px; }
+    .ww-carousel .ww-slide { display: none; }
+    .ww-carousel .ww-slide.active { display: block; }
+    .ww-carousel .ww-slide iframe { width: 100%; border: 0; border-radius: 12px; }
+
     .reading-conv { font-size: 15px; line-height: 2; }
     .reading-speaker { font-weight: 800; color: #667eea; }
 
@@ -391,9 +425,12 @@
     .modal-close { background: #e9edf4; }
     .copy-btn { background: #667eea; color: #fff; }
 
+    .quizlet-wrap { margin-bottom: 16px; }
+    .quizlet-wrap iframe { border-radius: 12px; }
+
     @media (max-width: 600px) {
       .hero h1 { font-size: 20px; }
-      .tab-btn { font-size: 11px; padding: 8px 10px; flex: 1 1 auto; }
+      .tab-btn { font-size: 10px; padding: 6px 8px; flex: 1 1 auto; }
       .flash-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
@@ -407,7 +444,8 @@
 </div>
 
 <div class="tabs" id="tabHeaders">
-  <button class="tab-btn active" data-tab="part1">📺 Частина 1</button>
+  <button class="tab-btn active" data-tab="vocab">📚 Слова</button>
+  <button class="tab-btn" data-tab="part1">📺 Частина 1</button>
   <button class="tab-btn" data-tab="part2">📺 Частина 2</button>
   <button class="tab-btn" data-tab="part3">📺 Частина 3</button>
   <button class="tab-btn" data-tab="practice">📚 Практика</button>
@@ -415,8 +453,32 @@
 
 <div class="container">
 
+  <!-- ========== VOCABULARY TAB ========== -->
+  <div class="tab-panel active" id="panel-vocab">
+    <div class="part-card">
+      <h2>📚 Слова до епізоду</h2>
+      <div class="quizlet-wrap">
+        <iframe src="https://quizlet.com/929750098/flashcards/embed?i=37cc42&x=1jj1" height="500" width="100%" style="border:0;border-radius:12px;"></iframe>
+      </div>
+    </div>
+
+    <div class="part-card">
+      <h2>🎯 Вправи на закріплення</h2>
+      <div class="ww-carousel" id="vocabCarousel">
+        <div class="ww-slide active" id="vslide-0"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/d6de393ee81140218aca767ccfcc6643?themeId=44&templateId=3&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="vslide-1"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/b07792b265a240b4b9d45f0ea3a02857?themeId=26&templateId=82&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="vslide-2"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/4790efd40aef4a3c8b027745154d2807?themeId=56&templateId=38&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="car-controls">
+          <button class="car-btn" id="vprev" disabled onclick="wwCarousel('v',-1)">← Назад</button>
+          <span class="car-counter" id="vcounter">1 / 3</span>
+          <button class="car-btn" id="vnext" onclick="wwCarousel('v',1)">Далі →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ========== PART 1 ========== -->
-  <div class="tab-panel active" id="panel-part1">
+  <div class="tab-panel" id="panel-part1">
     <div class="part-card">
       <h2>🎬 Частина 1 <small>(0:00 – 7:43)</small></h2>
       <div class="video-wrap">
@@ -432,14 +494,23 @@
     </div>
 
     <div class="part-card">
-      <h2>📚 Слова (Quizlet)</h2>
-      <iframe src="https://quizlet.com/929750098/flashcards/embed?i=37cc42&x=1jj1" height="500" width="100%" style="border:0;border-radius:12px;"></iframe>
-    </div>
-
-    <div class="part-card">
       <h2>🧠 Тест на розуміння</h2>
       <div id="quiz1"></div>
       <div id="qresult1"></div>
+    </div>
+
+    <div class="part-card">
+      <h2>🎯 Вправи</h2>
+      <div class="ww-carousel" id="part1Carousel">
+        <div class="ww-slide active" id="p1slide-0"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/64df7135275e4869a7b7bb29fa6ffc40?themeId=1&templateId=46&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p1slide-1"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/31eb66264b5244c78150fc1e37e97e21?themeId=69&templateId=38&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p1slide-2"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/48e4fe2fbf7d4262b898a7e7231c8cb9?themeId=43&templateId=76&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="car-controls">
+          <button class="car-btn" id="p1prev" disabled onclick="wwCarousel('p1',-1)">← Назад</button>
+          <span class="car-counter" id="p1counter">1 / 3</span>
+          <button class="car-btn" id="p1next" onclick="wwCarousel('p1',1)">Далі →</button>
+        </div>
+      </div>
     </div>
 
     <div class="part-card">
@@ -461,14 +532,24 @@
     </div>
 
     <div class="part-card">
-      <h2>📚 Слова (Quizlet)</h2>
-      <iframe src="https://quizlet.com/929750098/flashcards/embed?i=37cc42&x=1jj1" height="500" width="100%" style="border:0;border-radius:12px;"></iframe>
-    </div>
-
-    <div class="part-card">
       <h2>🧠 Тест на розуміння</h2>
       <div id="quiz2"></div>
       <div id="qresult2"></div>
+    </div>
+
+    <div class="part-card">
+      <h2>🎯 Вправи</h2>
+      <div class="ww-carousel" id="part2Carousel">
+        <div class="ww-slide active" id="p2slide-0"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/89e74afd8d5447dd96670fb343544179?themeId=52&templateId=3&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p2slide-1"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/d9ff08112ce54e25b5533168b5596331?themeId=52&templateId=5&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p2slide-2"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/4406d4c0cae94954b15cd25dec4b0625?themeId=1&templateId=35&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p2slide-3"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/f62610d36e464557920a2851de8dea72?themeId=52&templateId=72&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="car-controls">
+          <button class="car-btn" id="p2prev" disabled onclick="wwCarousel('p2',-1)">← Назад</button>
+          <span class="car-counter" id="p2counter">1 / 4</span>
+          <button class="car-btn" id="p2next" onclick="wwCarousel('p2',1)">Далі →</button>
+        </div>
+      </div>
     </div>
 
     <div class="part-card">
@@ -490,14 +571,24 @@
     </div>
 
     <div class="part-card">
-      <h2>📚 Слова (Quizlet)</h2>
-      <iframe src="https://quizlet.com/929750098/flashcards/embed?i=37cc42&x=1jj1" height="500" width="100%" style="border:0;border-radius:12px;"></iframe>
-    </div>
-
-    <div class="part-card">
       <h2>🧠 Тест на розуміння</h2>
       <div id="quiz3"></div>
       <div id="qresult3"></div>
+    </div>
+
+    <div class="part-card">
+      <h2>🎯 Вправи</h2>
+      <div class="ww-carousel" id="part3Carousel">
+        <div class="ww-slide active" id="p3slide-0"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/d3e27b71c61d4031a5cc82d56f63cb23?themeId=1&templateId=46&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p3slide-1"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/bd51acf85c9d4354bd8bd46aeb846274?themeId=44&templateId=73&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p3slide-2"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/71f5cb68da8c4092a4f746efe0effc65?themeId=51&templateId=5&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="ww-slide" id="p3slide-3"><iframe style="max-width:100%;width:100%;height:380px;" src="https://wordwall.net/uk/embed/4d997dae67fa478ca5af4267e1a55834?themeId=68&templateId=36&fontStackId=0" frameborder="0" allowfullscreen></iframe></div>
+        <div class="car-controls">
+          <button class="car-btn" id="p3prev" disabled onclick="wwCarousel('p3',-1)">← Назад</button>
+          <span class="car-counter" id="p3counter">1 / 4</span>
+          <button class="car-btn" id="p3next" onclick="wwCarousel('p3',1)">Далі →</button>
+        </div>
+      </div>
     </div>
 
     <div class="part-card">
@@ -508,7 +599,7 @@
     </div>
   </div>
 
-  <!-- ========== PRACTICE ========== -->
+  <!-- ========== PRACTICE TAB ========== -->
   <div class="tab-panel" id="panel-practice">
     <div class="part-card">
       <h2>📖 Читання (транскрипти)</h2>
@@ -561,8 +652,6 @@
 // КОНФІГУРАЦІЯ (епізод 03 – Hector has a date)
 // ============================================================
 const CONFIG = {
-  // Quizlet вже є на сторінці – vocab grid не потрібен
-
   quizzes: {
     part1: [
       { q: 'What is Annie looking for on the Internet?', opts: ['A new job', 'A boyfriend', 'A holiday', 'A recipe'], ans: 1 },
@@ -594,14 +683,14 @@ const CONFIG = {
       ]
     },
     part2: {
-      bank: ['taxidermist', 'dancing', 'spray', 'messages', 'Romeo'],
+      bank: ['taxidermist', 'dancing', 'spray', 'messages', 'Romero'],
       sentences: [
         'Annie tells Hector that a {taxidermist} is horrible.',
         'Nick teaches Hector how to get girlfriends by {dancing}.',
         'Hector accidentally uses perfume as plant {spray}.',
         'Nick says girls like fast cars, money, and {dancing}.',
         'Hector and Nick receive 633 {messages} from girls.',
-        'Nick pretends they are the {Romeo} brothers.'
+        'Nick pretends they are the {Romero} brothers.'
       ]
     },
     part3: {
@@ -617,9 +706,7 @@ const CONFIG = {
     }
   },
 
-  // ===== ЧИТАННЯ: 3 СЛАЙДИ ПО 16 РЯДКІВ =====
   readingScripts: [
-    // Частина 1 (0:00 – 7:43)
     `<p><span class="reading-speaker">Annie:</span> Dear dream date. My name is Annie! I'm 19 and I love animals, and chocolate.</p>
      <p><span class="reading-speaker">Bridget:</span> What are you doing, Annie?</p>
      <p><span class="reading-speaker">Annie:</span> Nothing!</p>
@@ -636,8 +723,6 @@ const CONFIG = {
      <p><span class="reading-speaker">Bridget:</span> OK. Let's get a drink!</p>
      <p><span class="reading-speaker">Bridget:</span> Would you like some water, Hector? <span class="reading-speaker">Hector:</span> Ladies first.</p>
      <p><span class="reading-speaker">Annie:</span> Oh, goody! Three messages. Oh dear.</p>`,
-
-    // Частина 2 (7:43 – 17:22)
     `<p><span class="reading-speaker">Bridget:</span> Annie's been on the Internet - again! To find a boyfriend!</p>
      <p><span class="reading-speaker">Nick:</span> Let's see! 'Annie baby! Rocky the tennis star here!'</p>
      <p><span class="reading-speaker">Nick:</span> 'Dear Annie! I love animals too. They are so beautiful in their glass boxes.'</p>
@@ -654,8 +739,6 @@ const CONFIG = {
      <p><span class="reading-speaker">Hector:</span> Oh, no girlfriends, me. Never.</p>
      <p><span class="reading-speaker">Nick:</span> I know what girls like. They like fast cars, money, dancing.</p>
      <p><span class="reading-speaker">Nick:</span> Hector, leave it to me, my friend, I have a plan!</p>`,
-
-    // Частина 3 (17:22 – кінець)
     `<p><span class="reading-speaker">Bridget:</span> I smell a rat! And I think I know who is responsible!</p>
      <p><span class="reading-speaker">Bridget:</span> Ha, cheats, they glued their photo on this car!</p>
      <p><span class="reading-speaker">Bridget:</span> Let's go to the cyber cafe. I have a plan.</p>
@@ -756,7 +839,7 @@ const CONFIG = {
 };
 
 // ============================================================
-// РУШІЙ (не змінюйте)
+// РУШІЙ
 // ============================================================
 
 const quizAnswered = {};
@@ -764,6 +847,8 @@ const correctMap = {};
 const quizScores = {};
 const puzzleScores = {};
 const carState = { r: 0, sp: 0 };
+const wwState = { v: 0, p1: 0, p2: 0, p3: 0 };
+const wwMax = { v: 2, p1: 2, p2: 3, p3: 3 };
 
 function shuffle(arr) {
   const a = [...arr];
@@ -781,6 +866,7 @@ function makeSel(word, pi, bank) {
   return '<select class="pzl-sel" data-ans="' + word + '" data-pi="' + pi + '">' + o + '</select>';
 }
 
+// Tabs
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', function() {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -791,6 +877,25 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   });
 });
 
+// Wordwall Carousel
+function wwCarousel(id, dir) {
+  const max = wwMax[id] || 0;
+  wwState[id] = Math.max(0, Math.min(max, wwState[id] + dir));
+  const idx = wwState[id];
+  const prefix = id === 'v' ? 'vslide' : id === 'p1' ? 'p1slide' : id === 'p2' ? 'p2slide' : 'p3slide';
+  for (let i = 0; i <= max; i++) {
+    const el = document.getElementById(prefix + '-' + i);
+    if (el) el.classList.toggle('active', i === idx);
+  }
+  const prevBtn = document.getElementById(id + 'prev');
+  const nextBtn = document.getElementById(id + 'next');
+  const counter = document.getElementById(id + 'counter');
+  if (prevBtn) prevBtn.disabled = (idx === 0);
+  if (nextBtn) nextBtn.disabled = (idx === max);
+  if (counter) counter.textContent = (idx + 1) + ' / ' + (max + 1);
+}
+
+// Render quizzes
 function renderQuiz(partKey, containerId, resultId, partIndex) {
   const questions = CONFIG.quizzes[partKey] || [];
   const container = document.getElementById(containerId);
@@ -838,6 +943,7 @@ function answerQuiz(qKey, qi, oi, ans, convIdx, btn) {
   }
 }
 
+// Render puzzles
 function renderPuzzle(partKey, containerId, partIndex) {
   const data = CONFIG.puzzles[partKey];
   if (!data) return;
@@ -876,10 +982,11 @@ function markPartDone(partIndex) {
   const pDone = puzzleScores[pKey] ? true : false;
   const tabBtns = document.querySelectorAll('.tab-btn');
   if (qDone && pDone) {
-    tabBtns[partIndex].classList.add('done');
+    tabBtns[partIndex + 1].classList.add('done');
   }
 }
 
+// Reading
 function renderReading() {
   const scripts = CONFIG.readingScripts;
   let html = '';
@@ -892,6 +999,7 @@ function renderReading() {
 }
 renderReading();
 
+// Speaking
 function renderSpeaking() {
   const container = document.getElementById('speakingSlides');
   if (!container) return;
@@ -917,6 +1025,7 @@ function renderSpeaking() {
 }
 renderSpeaking();
 
+// Carousel navigation (reading & speaking)
 function carNav(id, dir) {
   const max = id === 'r' ? 2 : 3;
   carState[id] = Math.max(0, Math.min(max, carState[id] + dir));
@@ -933,6 +1042,7 @@ function carNav(id, dir) {
 carNav('r', 0);
 carNav('sp', 0);
 
+// Flashcards
 function renderFlashcards() {
   const grid = document.getElementById('flashGrid');
   if (!grid) return;
@@ -954,6 +1064,7 @@ function flipAll() {
   document.querySelectorAll('.flash-card').forEach(c => c.classList.toggle('flipped', allFlipped));
 }
 
+// FAB
 function updateFab() {
   let g = 0, t = 0;
   Object.values(quizScores).forEach(s => { if (s) { g += s.got; t += s.total; } });
@@ -992,6 +1103,12 @@ function copyResults() {
   ta.select();
   navigator.clipboard.writeText(ta.value).catch(() => {});
 }
+
+// Initialize Wordwall carousels
+wwCarousel('v', 0);
+wwCarousel('p1', 0);
+wwCarousel('p2', 0);
+wwCarousel('p3', 0);
 
 updateFab();
 </script>
